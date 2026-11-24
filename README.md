@@ -1,9 +1,6 @@
 # Reproduction code for
 
-**“An approach for evaluating recommender systems: assessing usefulness and coherence through item relationships”**
-Marie Griffon, Nicolas Delestre, Maxime Gueriau, 2026
-
-[Paper link]
+Griffon, M., Delestre, N., Guériau, M. (2026). **An Approach for Evaluating Recommender Systems: Assessing Usefulness and Coherence Through Item Relationships**. In: Zanni-Merk, C., Ismayilov, E., Ismayilova, N., Genaud, S., Abdulkarimova, U. (eds) Artificial Intelligence for Digital Transformations. AIDT 2026. Communications in Computer and Information Science, vol 3023. Springer, Cham. https://doi.org/10.1007/978-3-032-31319-5_15
 
 ---
 
