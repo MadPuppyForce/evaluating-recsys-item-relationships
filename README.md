@@ -33,7 +33,7 @@ Griffon, M., Delestre, N., Guériau, M. (2026). **An Approach for Evaluating Rec
 **Versions.**
 
 * Release [`v1.0-paper`](https://github.com/MadPuppyForce/evaluating-recsys-item-relationships/releases/tag/v1.0-paper): the code as published, which reproduces the values reported in the paper.
-* Release `v1.1-corrected` and the `main` branch: the corrected code.
+* Release [`v1.1-corrected`](https://github.com/MadPuppyForce/evaluating-recsys-item-relationships/releases/tag/v1.1-corrected) and the `main` branch: the corrected code.
 * The table above can be regenerated with `scripts/recompute_symmetric_usefulness_ilr.py`, which computes both versions side by side (see step 4 below).
 
 The code was corrected and this erratum published in November 2026.
