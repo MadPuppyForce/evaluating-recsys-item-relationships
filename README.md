@@ -4,6 +4,42 @@ Griffon, M., Delestre, N., Guériau, M. (2026). **An Approach for Evaluating Rec
 
 ---
 
+# Erratum (code corrected after publication)
+
+**The Usefulness and ILR values reported in the paper were computed with an implementation error. The code on the `main` branch is corrected; the corrected results differ from the published ones and are given below.**
+
+**What was wrong.** Substitutability and complementarity are symmetric relations: the score of a pair of items does not depend on the order of the two items. Each pair is stored once, as `(smaller item ID, larger item ID)`, but the function `max_relation_score` in `src/metrics/usefulness_ilr.py` looked a pair up only in the order in which it was presented. A pair presented as `(larger ID, smaller ID)` was therefore scored 0 instead of its actual score.
+
+**What is affected.**
+
+* **Affected:** the Usefulness and ILR experiments (step 3 below): the corruption curves and the degradation indicators (Spearman correlation and total drop).
+* **Not affected:** the train/test splits, the substitutability and complementarity scores, the IC score, and the precision/recall evaluation of the scores (steps 1 and 2 below).
+
+**Published vs. corrected results.** Same protocol, same splits, same seed and same corruption draws; only the relation lookup differs. *Spearman* is the correlation between the corruption ratio and the mean metric value; *Drop* is the mean value without corruption minus the mean value at full corruption.
+
+| Domain | Metric | Spearman (published) | Spearman (corrected) | Drop (published) | Drop (corrected) |
+|---|---|---|---|---|---|
+| Electronic | ILR | -0.5438 | -0.6895 | 0.0039 | 0.0084 |
+| Electronic | Usefulness | -0.4643 | -0.5000 | 0.0007 | 0.0137 |
+| Clothing | ILR | 0.3915 | 0.1725 | 0.0009 | 0.0017 |
+| Clothing | Usefulness | -0.3349 | -0.5714 | 0.0007 | 0.0055 |
+| Food | ILR | -0.6674 | -0.6641 | 0.0041 | 0.0112 |
+| Food | Usefulness | -0.5406 | -0.9286 | 0.0019 | 0.0145 |
+| Global | ILR | -0.8155 | -0.8112 | 0.0030 | 0.0073 |
+| Global | Usefulness | -0.7857 | -0.8214 | 0.0011 | 0.0114 |
+
+**Impact on the conclusions.** The conclusions of the paper are unchanged, and for the most part strengthened. With the corrected code, the drop under corruption is larger for both metrics in every domain (about 2 to 3 times larger for ILR, 8 to 20 times larger for Usefulness), and the correlation between corruption and Usefulness is more strongly negative in every domain. For ILR, the correlation is more strongly negative on Electronic, essentially unchanged on Food and globally, and remains positive on Clothing (0.17 instead of 0.39).
+
+**Versions.**
+
+* Release [`v1.0-paper`](https://github.com/MadPuppyForce/evaluating-recsys-item-relationships/releases/tag/v1.0-paper): the code as published, which reproduces the values reported in the paper.
+* Release `v1.1-corrected` and the `main` branch: the corrected code.
+* The table above can be regenerated with `scripts/recompute_symmetric_usefulness_ilr.py`, which computes both versions side by side (see step 4 below).
+
+The code was corrected and this erratum published in November 2026.
+
+---
+
 # Overview
 
 This repository contains the code used to reproduce the experiments presented in the paper:
@@ -48,7 +84,8 @@ mon-papier-repro/
 ├── scripts/
 │   ├── build_splits.py
 │   ├── run_scores_experiment.py
-│   └── run_metrics_experiment.py
+│   ├── run_metrics_experiment.py
+│   └── recompute_symmetric_usefulness_ilr.py   # erratum: published vs. corrected
 │
 └── results/
 ```
@@ -184,6 +221,24 @@ Results are saved in:
 ```
 results/<domain>/
 results/
+```
+
+---
+
+## 4. Compare published and corrected metrics (erratum)
+
+```
+uv run python scripts/recompute_symmetric_usefulness_ilr.py
+```
+
+This script requires the outputs of step 2. It re-runs the protocol of step 3 and computes, for every corrupted sample, both the published version of the metrics (`ref`, single-orientation lookup) and the corrected version (`sym`, symmetric lookup). See the Erratum section at the top of this file.
+
+Outputs are saved in:
+
+```
+results/<domain>/ilr_agg_symcompare.csv
+results/<domain>/usefulness_agg_symcompare.csv
+results/symcompare_summary.csv
 ```
 
 ---
