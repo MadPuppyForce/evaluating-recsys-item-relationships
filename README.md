@@ -203,17 +203,20 @@ All experiments were run on:
 
 If you use this code, please cite:
 
-```
-@article{griffon2026relational,
-  title={An approach for evaluating recommender systems: assessing usefulness and coherence through item relationships},
-  author={Griffon, Marie and Delestre, Nicolas and Gueriau, Maxime},
-  year={2026}
+```bibtex
+@inproceedings{griffon2026usefulnessilr,
+  author    = {Griffon, Marie and Delestre, Nicolas and Gu{\'e}riau, Maxime},
+  title     = {An Approach for Evaluating Recommender Systems: Assessing Usefulness and Coherence Through Item Relationships},
+  booktitle = {Artificial Intelligence for Digital Transformations},
+  year      = {2026},
+  publisher = {Springer Nature Switzerland},
+  pages     = {220--235}
 }
 ```
 
 You should also cite the dataset:
 
-```
+```bibtex
 @inproceedings{sun2022revisiting,
   title={Revisiting Bundle Recommendation: Datasets, Tasks, Challenges and Opportunities for Intent-Aware Product Bundling},
   author={Sun, Zhu and Yang, Jie and Feng, Kaidong and Fang, Hui and Qu, Xinghua and Ong, Yew Soon},
