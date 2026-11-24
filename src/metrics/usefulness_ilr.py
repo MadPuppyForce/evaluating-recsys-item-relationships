@@ -34,9 +34,20 @@ def max_relation_score(
     subst_map: Dict[Tuple[str, str], float],
     compl_map: Dict[Tuple[str, str], float],
 ) -> float:
-    """Return the max between subst and compl scores using prebuilt maps."""
+    """Return the max between subst and compl scores using prebuilt maps.
 
-    return max(subst_map.get((item_a, item_b), 0.0), compl_map.get((item_a, item_b), 0.0))
+    Substitutability and complementarity are symmetric relations, and the maps
+    store each pair only once, so both key orientations are queried.
+    (Up to release v1.0-paper only (item_a, item_b) was queried; see the
+    Erratum section of the README.)
+    """
+
+    return max(
+        subst_map.get((item_a, item_b), 0.0),
+        subst_map.get((item_b, item_a), 0.0),
+        compl_map.get((item_a, item_b), 0.0),
+        compl_map.get((item_b, item_a), 0.0),
+    )
 
 def _directional_usefulness(
     source_items: Sequence[str],
